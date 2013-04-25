@@ -1,18 +1,23 @@
 "use strict";
 
 module.exports = function (grunt) {
+
+	var SRC_DIR = 'src/',
+		SCRIPTS_DIR = SRC_DIR + 'lib/',
+		ALL_STYLES = SRC_DIR + 'css/**/*.css';
+
 	grunt.initConfig({		
 		csslint:{
 			all:{
 				files : {
-					src : ['src/css/**/*.css']
+					src : [ALL_STYLES]
 				}
 			}
 		},
 		jshint: {
 			all:{
 				files : {
-					src : ['src/lib/**/*.js','Gruntfile.js']
+					src : [SCRIPTS_DIR,'Gruntfile.js']
 				}
 			}	
 		}
