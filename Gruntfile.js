@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
 
 	var SRC_DIR = 'src/',
-		SCRIPTS_DIR = SRC_DIR + 'lib/',
+		SCRIPTS_DIR = SRC_DIR + 'lib/',		
 		ALL_STYLES = SRC_DIR + 'css/**/*.css';
 
 	grunt.initConfig({		
@@ -41,31 +41,57 @@ module.exports = function (grunt) {
 				maxdepth : 2,
 				maxcomplexity : 5
 			},
-			core : {				
+			core : {
+				options{
+					globals:{
+						module : true,
+						setTimeout : true, //TODO: fixme!!!! dependen del objeto window no deberian estar en el core
+						localStorage : true //TODO: fixme!!!!
+					}
+				},
 				files : {
 					src : [SCRIPTS_DIR+'core/**/*.js']
 				}
 			},
 			jquery : {
+				options{
+					browser : true,
+					jquery : true,
+					globals:{
+						module : true,
+						require : true,
+						console : true 
+					}
+				},
 				files : {
 					src : [SCRIPTS_DIR+'zepto_jquery/**/*.js']
 				}
 			},
 			knockout : {
+				options{
+					browser : true,					
+					globals:{
+						module : true,
+						require : true,
+						console : true 
+					}
+				},
 				files : {
 					src : [SCRIPTS_DIR+'knockout/**/*.js']
 				}
 			},
 			gruntfile : {
+				options{
+					node : true,
+					maxstatements : false,					
+				},
 				files : {
 					src : ['Gruntfile.js']
 				}
-			}
-			
-		}
-
-				
+			}			
+		}				
 	});
+
 	grunt.loadNpmTasks("grunt-contrib-csslint");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 
