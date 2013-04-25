@@ -4,7 +4,9 @@ module.exports = function (grunt) {
 
 	var SRC_DIR = 'src/',
 		SCRIPTS_DIR = SRC_DIR + 'lib/',		
-		ALL_STYLES = SRC_DIR + 'css/**/*.css';
+		ALL_STYLES = SRC_DIR + 'css/**/*.css',
+		SCRIPTS_UNIT_TEST = SRC_DIR+'test/unit/',
+		SCRIPTS_BDD_TEST = SCRIPTS_DIR+'test/dbb/';
 
 	grunt.initConfig({		
 		csslint:{
@@ -88,7 +90,51 @@ module.exports = function (grunt) {
 				files : {
 					src : ['Gruntfile.js']
 				}
-			}			
+			},
+			unit : {
+				options{
+					node : true,
+					expr : true,
+					latedef : false,
+					globals {
+						describe:true.
+						beforeEach : true,
+						afterEach : true,
+						xdescribe: true,
+						context : true,
+						it: true,
+						xit: true
+					}					
+				},
+				files : {
+					src : [SCRIPTS_UNIT_TEST+'**/*.js']
+				}
+			},
+			bdd : {
+				options{
+					node : true,
+					expr : true,
+					jquery: true,
+					maxparams : 5, //TODO: fixme!!!!
+					maxdepth:3, //TODO: fixme!!!!
+					maxstatements:20 //TODO: fixme!!!!					
+					globals {
+						describe:true.
+						beforeEach : true,
+						afterEach : true,
+						xdescribe: true,
+						context : true,
+						it: true,
+						xit: true,
+						chai : true,
+						bdd : true,
+						console:true
+					}					
+				},
+				files : {
+					src : [SCRIPTS_BDD_TEST+'**/*.js']
+				}
+			}				
 		}				
 	});
 
