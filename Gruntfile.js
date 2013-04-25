@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function (grunt) {
-	grunt.initCongfig({		
+	grunt.initConfig({		
 		csslint:{
 			all:{
 				files : {
@@ -12,4 +12,8 @@ module.exports = function (grunt) {
 				
 	});
 	grunt.loadNpmTasks("grunt-contrib-csslint");
+
+	grunt.registerTask('default', [
+		'csslint'
+	]);
 };
