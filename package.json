@@ -19,6 +19,7 @@
   "gitHead": "d411c2831c7fe6a82b4e3ac5e3a9fb4c7cc43c4c",
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-csslint": "~0.1.2"
+    "grunt-contrib-csslint": "~0.1.2",
+    "grunt-contrib-jshint": "~0.4.3"
   }
 }
