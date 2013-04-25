@@ -139,43 +139,49 @@ module.exports = function (grunt) {
 					src : [SCRIPTS_BDD_TEST]
 				}
 			}				
-		}
+		},
 		watch : {
 			gruntfile : {
-				files: {
-					src : ['Gruntfile.js']
-				},
-				task : ['jshint:gruntfile']
+				files: 
+					 ['Gruntfile.js']
+				,
+				tasks : ['jshint:gruntfile']
 			},
 			bdd : {
-				files: {
-					src : [SCRIPTS_BDD_TEST]
-				},
-				task : ['jshint:bdd']
+				files: 
+					 [SCRIPTS_BDD_TEST]
+				,
+				tasks : ['jshint:bdd']
 			},
 			unit : {
-				files: {				
-				 src : [SCRIPTS_UNIT_TEST+'**/*.js']
-				},
-				task : ['jshint:unit']
+				files: 				
+				  [SCRIPTS_UNIT_TEST+'**/*.js']
+				,
+				tasks : ['jshint:unit']
 			},
 			knockout : {
-				files: {				
-				 src : [SCRIPTS_DIR+'knockout/**/*.js']
-				},
-				task : ['jshint:knockout']
+				files: 				
+				  [SCRIPTS_DIR+'knockout/**/*.js']
+				,
+				tasks : ['jshint:knockout']
 			},
 			jquery : {
-				files: {				
-				 src : [SCRIPTS_DIR+'zepto_jquery/**/*.js']
-				},
-				task : ['jshint:jquery']
+				files: 				
+				  [SCRIPTS_DIR+'zepto_jquery/**/*.js']
+				,
+				tasks : ['jshint:jquery']
 			},
 			core : {
-				files: {				
-				 src : [SCRIPTS_DIR+'core/**/*.js']
-				},
-				task : ['jshint:core']
+				files: 				
+				 [SCRIPTS_DIR+'core/**/*.js']
+				,
+				tasks : ['jshint:core']
+			},
+			styles : {
+				files: 				
+					 [ALL_STYLES]
+				,
+				tasks : ['csslint']
 			}
 		}				
 	});
