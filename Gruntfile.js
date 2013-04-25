@@ -185,7 +185,7 @@ module.exports = function (grunt) {
 					src : [SCRIPTS_UNIT_TEST+'**/*.js']
 				}
 			}
-		}
+		},
 		clean : [SRC_DIR_OUTPUT],
 		copy : {
 			main: {
@@ -210,8 +210,7 @@ module.exports = function (grunt) {
 				baseUrl : SCRIPTS_DIR,
 				cjsTranslate : true,
 				useStrict : true,
-				preserveLicenceseComments : false,
-				generateSourceMaps : true,
+				preserveLicenceseComments : false,				
 				optimize : 'uglify2',
 				include : ['../../vendor/almond.js']
 			},	
