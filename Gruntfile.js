@@ -139,11 +139,50 @@ module.exports = function (grunt) {
 					src : [SCRIPTS_BDD_TEST]
 				}
 			}				
+		}
+		watch : {
+			gruntfile : {
+				files: {
+					src : ['Gruntfile.js']
+				},
+				task : ['jshint:gruntfile']
+			},
+			bdd : {
+				files: {
+					src : [SCRIPTS_BDD_TEST]
+				},
+				task : ['jshint:bdd']
+			},
+			unit : {
+				files: {				
+				 src : [SCRIPTS_UNIT_TEST+'**/*.js']
+				},
+				task : ['jshint:unit']
+			},
+			knockout : {
+				files: {				
+				 src : [SCRIPTS_DIR+'knockout/**/*.js']
+				},
+				task : ['jshint:knockout']
+			},
+			jquery : {
+				files: {				
+				 src : [SCRIPTS_DIR+'zepto_jquery/**/*.js']
+				},
+				task : ['jshint:jquery']
+			},
+			core : {
+				files: {				
+				 src : [SCRIPTS_DIR+'core/**/*.js']
+				},
+				task : ['jshint:core']
+			}
 		}				
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-csslint");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-contrib-watch");
 
 	grunt.registerTask('default', [
 		'csslint','jshint'
