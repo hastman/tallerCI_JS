@@ -142,46 +142,46 @@ module.exports = function (grunt) {
 		},
 		watch : {
 			gruntfile : {
-				files: 
-					 ['Gruntfile.js']
-				,
-				tasks : ['jshint:gruntfile']
+				files:  ['Gruntfile.js'],
+				tasks : ['jshint:gruntfile','simplemocha:dev']
 			},
 			bdd : {
-				files: 
-					 [SCRIPTS_BDD_TEST]
-				,
-				tasks : ['jshint:bdd']
+				files:  [SCRIPTS_BDD_TEST],
+				tasks : ['jshint:bdd','simplemocha:dev']
 			},
 			unit : {
-				files: 				
-				  [SCRIPTS_UNIT_TEST+'**/*.js']
-				,
-				tasks : ['jshint:unit']
+				files:  [SCRIPTS_UNIT_TEST+'**/*.js'],
+				tasks : ['jshint:unit','simplemocha:dev']
 			},
 			knockout : {
-				files: 				
-				  [SCRIPTS_DIR+'knockout/**/*.js']
-				,
-				tasks : ['jshint:knockout']
+				files: [SCRIPTS_DIR+'knockout/**/*.js'],
+				tasks : ['jshint:knockout','simplemocha:dev']
 			},
 			jquery : {
-				files: 				
-				  [SCRIPTS_DIR+'zepto_jquery/**/*.js']
-				,
-				tasks : ['jshint:jquery']
+				files: [SCRIPTS_DIR+'zepto_jquery/**/*.js'],
+				tasks : ['jshint:jquery','simplemocha:dev']
 			},
 			core : {
-				files: 				
-				 [SCRIPTS_DIR+'core/**/*.js']
-				,
-				tasks : ['jshint:core']
+				files: [SCRIPTS_DIR+'core/**/*.js'],
+				tasks : ['jshint:core','simplemocha:dev']
 			},
 			styles : {
-				files: 				
-					 [ALL_STYLES]
-				,
+				files: [ALL_STYLES],
 				tasks : ['csslint']
+			}
+		},
+		simplemocha : {
+			options : {
+				timeout : 500, //unit test
+				ui: 'bdd'
+			},
+			dev : {
+				options : {
+					reporter : 'dot'
+				},
+				files : {
+					src : [SCRIPTS_UNIT_TEST+'**/*.js']
+				}
 			}
 		}				
 	});
@@ -189,8 +189,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-csslint");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-simple-mocha");
 
 	grunt.registerTask('default', [
-		'csslint','jshint'
+		'csslint','jshint','simplemocha:dev'
 	]);
 };
