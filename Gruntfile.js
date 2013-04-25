@@ -5,8 +5,9 @@ module.exports = function (grunt) {
 	var SRC_DIR = 'src/',
 		SCRIPTS_DIR = SRC_DIR + 'lib/',		
 		ALL_STYLES = SRC_DIR + 'css/**/*.css',
-		SCRIPTS_UNIT_TEST = SRC_DIR+'test/unit/',
-		SCRIPTS_BDD_TEST = SCRIPTS_DIR+'test/dbb/';
+		SRC_TEST_DIR = SRC_DIR +'test/',
+		SCRIPTS_UNIT_TEST = SRC_TEST_DIR+'unit/',
+		SCRIPTS_BDD_TEST = SRC_TEST_DIR+'bdd/*.js';
 
 	grunt.initConfig({		
 		csslint:{
@@ -27,7 +28,7 @@ module.exports = function (grunt) {
 				globalstrict : true,
 				bitwise : true,
 				camelcase : true,
-				curly : true,
+				curly : false,
 				eqeqeq : true,
 				forin : true,
 				latedef :true,
@@ -36,15 +37,16 @@ module.exports = function (grunt) {
 				nonew : true,
 				undef : true,
 				unused : true,
-				white : true,
-				trailing : true,
+				white : false,
+				trailing : false,
 				maxparams :3,
 				maxstatements : 10,
 				maxdepth : 2,
 				maxcomplexity : 5
+
 			},
 			core : {
-				options{
+				options:{
 					globals:{
 						module : true,
 						setTimeout : true, //TODO: fixme!!!! dependen del objeto window no deberian estar en el core
@@ -56,7 +58,7 @@ module.exports = function (grunt) {
 				}
 			},
 			jquery : {
-				options{
+				options:{
 					browser : true,
 					jquery : true,
 					globals:{
@@ -70,7 +72,7 @@ module.exports = function (grunt) {
 				}
 			},
 			knockout : {
-				options{
+				options:{
 					browser : true,					
 					globals:{
 						module : true,
@@ -83,21 +85,22 @@ module.exports = function (grunt) {
 				}
 			},
 			gruntfile : {
-				options{
+				options:{
 					node : true,
-					maxstatements : false,					
+					maxstatements : false					
 				},
 				files : {
 					src : ['Gruntfile.js']
 				}
 			},
 			unit : {
-				options{
+				options:{
 					node : true,
 					expr : true,
 					latedef : false,
-					globals {
-						describe:true.
+					globals: {
+						
+						describe:true,
 						beforeEach : true,
 						afterEach : true,
 						xdescribe: true,
@@ -111,15 +114,16 @@ module.exports = function (grunt) {
 				}
 			},
 			bdd : {
-				options{
+				options:{
 					node : true,
 					expr : true,
 					jquery: true,
 					maxparams : 5, //TODO: fixme!!!!
 					maxdepth:3, //TODO: fixme!!!!
-					maxstatements:20 //TODO: fixme!!!!					
-					globals {
-						describe:true.
+					maxstatements:20, //TODO: fixme!!!!					
+					globals: {
+						localStorage : true,
+						describe:true,
 						beforeEach : true,
 						afterEach : true,
 						xdescribe: true,
@@ -132,7 +136,7 @@ module.exports = function (grunt) {
 					}					
 				},
 				files : {
-					src : [SCRIPTS_BDD_TEST+'**/*.js']
+					src : [SCRIPTS_BDD_TEST]
 				}
 			}				
 		}				
