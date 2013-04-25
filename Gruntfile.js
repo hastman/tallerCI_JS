@@ -7,9 +7,11 @@ module.exports = function (grunt) {
 		ALL_STYLES = SRC_DIR + 'css/**/*.css',
 		SRC_TEST_DIR = SRC_DIR +'test/',
 		SCRIPTS_UNIT_TEST = SRC_TEST_DIR+'unit/',
-		SCRIPTS_BDD_TEST = SRC_TEST_DIR+'bdd/*.js';
+		SCRIPTS_BDD_TEST = SRC_TEST_DIR+'bdd/*.js',
+		SRC_DIR_OUTPUT = 'dist/';
 
 	grunt.initConfig({		
+		pkg : grunt.file.readJSON('package.json'),
 		csslint:{
 			all:{
 				files : {
@@ -183,15 +185,86 @@ module.exports = function (grunt) {
 					src : [SCRIPTS_UNIT_TEST+'**/*.js']
 				}
 			}
-		}				
+		}
+		clean : [SRC_DIR_OUTPUT],
+		copy : {
+			main: {
+				files : [
+					{
+						expand : true, 
+						cwd : SRC_DIR,
+						src : ['img/**','**/!(initial_*).html'],
+						dest : SRC_DIR_OUTPUT
+					},
+					{
+						expand : true, 
+						cwd : './',
+						src : ['vendor/**/!(almond.js)'],
+						dest : SRC_DIR_OUTPUT+'js/'
+					}
+				]
+			}
+		},
+		requirejs: {
+			options : {
+				baseUrl : SCRIPTS_DIR,
+				cjsTranslate : true,
+				useStrict : true,
+				preserveLicenceseComments : false,
+				generateSourceMaps : true,
+				optimize : 'uglify2',
+				include : ['../../vendor/almond.js']
+			},	
+			zeptoJquery:{
+				options: {
+					name : 'zepto_jquery/main',
+					insertRequire : ['zepto_jquery/main'],
+					out : "dist/js/dist-zepto_jquery.min.js",
+					uglify2 : {
+						report : 'gzip',
+						mangle : {
+							execpt : ['jQuery','Zepto']
+						}
+					}
+				}
+			},
+			ko:{
+				options: {
+					name : 'knockout/main',
+					insertRequire : ['knockout/main'],
+					out : "dist/js/dist-ko.min.js",
+					uglify2 : {
+						report : 'gzip',
+						mangle : {
+							execpt : ['no']
+						}
+					}
+				}
+			}
+		},
+		cssmin: {
+			options : {
+				report : 'gzip'
+			}
+		}
+
+
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-csslint");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-simple-mocha");
+	grunt.loadNpmTasks("grunt-contrib-clean");
+	grunt.loadNpmTasks("grunt-contrib-copy");
+	grunt.loadNpmTasks("grunt-contrib-requirejs");
+	grunt.loadNpmTasks("grunt-contrib-cssmin");
 
 	grunt.registerTask('default', [
 		'csslint','jshint','simplemocha:dev'
+	]);
+
+	grunt.registerTask('dist', [
+		'clean','cssmin','requirejs','copy'
 	]);
 };
